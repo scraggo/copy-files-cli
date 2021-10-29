@@ -1,6 +1,6 @@
-import commander from "./commander";
-import backup from "./backup";
+// @ts-check
 
-const main = async () => backup(commander);
+import commander from './commander';
+import backup from './backup';
 
-main();
+backup(commander.config);

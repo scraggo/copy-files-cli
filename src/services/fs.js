@@ -1,6 +1,8 @@
-import fs from "fs";
-import os from "os";
-import path from "path";
+// @ts-check
+
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 
 const { promises } = fs;
 
@@ -19,7 +21,7 @@ export const existsAsync = promises.access;
  * @returns {string} expanded path
  */
 const expandHome = filepath => {
-  if (filepath[0] === "~") {
+  if (filepath[0] === '~') {
     return path.join(os.homedir(), filepath.slice(1));
   }
   return filepath;
@@ -52,7 +54,7 @@ export const getBackupFileLocation = (backupDirAbsolute, filepath) => {
  * It allows for '~' in paths and creates a new path for the backup file location.
  * @param {string} fileToCopy path of file or directory
  * @param {string} backupDirAbsolute backup directory
- * @returns {Promise} resolves with what copyFileAsync returns
+ * @returns {Promise<void>} resolves with what promises.copyFile returns
  */
 export const copyFileAsync = (fileToCopy, backupDirAbsolute) => {
   const absFilePath = resolvePath(fileToCopy);

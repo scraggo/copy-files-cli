@@ -13,6 +13,7 @@ var _path = _interopRequireDefault(require("path"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// @ts-check
 const {
   promises
 } = _fs.default;
@@ -34,7 +35,7 @@ const existsAsync = promises.access;
 exports.existsAsync = existsAsync;
 
 const expandHome = filepath => {
-  if (filepath[0] === "~") {
+  if (filepath[0] === '~') {
     return _path.default.join(_os.default.homedir(), filepath.slice(1));
   }
 
@@ -74,7 +75,7 @@ const getBackupFileLocation = (backupDirAbsolute, filepath) => {
  * It allows for '~' in paths and creates a new path for the backup file location.
  * @param {string} fileToCopy path of file or directory
  * @param {string} backupDirAbsolute backup directory
- * @returns {Promise} resolves with what copyFileAsync returns
+ * @returns {Promise<void>} resolves with what promises.copyFile returns
  */
 
 

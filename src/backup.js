@@ -1,39 +1,42 @@
+// @ts-check
+
 import {
   copyFileAsync,
   existsAsync,
   readFileAsync,
-  resolvePath
-} from "./utils/fs";
+  resolvePath,
+} from './services/fs';
+import { log, logNested } from './services/log';
 
 /**
- * Backup files from command line option
- * @param {object<Commander>} commander parsed commander options
- * @returns {Promise} resolves to undefined
+ * @typedef {Object} Config user json configuration
+ * @property {string[]} Config.files path
+ * @property {string} Config.backupDirectory path
  */
-const backup = commander => {
-  // config is required, or we don't get to this point
-  const { config: path } = commander;
 
-  return existsAsync(path)
-    .then(() => readFileAsync(path, { encoding: "utf8" }))
-    .then(async json => {
-      const parsedConfig = JSON.parse(json);
-      const { files, backupDirectory } = parsedConfig;
+/**
+ * Backup files given a path to config file
+ * @param {string} path to config file
+ * @returns {Promise<void>} Promise
+ */
+const backup = async path => {
+  await existsAsync(path);
+  const json = await readFileAsync(path, { encoding: 'utf8' });
 
-      const normalizedBackupDir = resolvePath(backupDirectory);
+  /** @type {Config} */
+  const parsedConfig = JSON.parse(json);
+  log('Config:');
+  logNested(parsedConfig);
 
-      const promises = files.map(file =>
-        copyFileAsync(file, normalizedBackupDir)
-      );
+  const { files, backupDirectory } = parsedConfig;
 
-      await Promise.all(promises);
+  const normalizedBackupDir = resolvePath(backupDirectory);
 
-      /* eslint-disable no-console */
-      console.log("Backups successful!");
-      console.log(parsedConfig);
-    })
-    .catch(console.error);
-  /* eslint-enable */
+  await Promise.all(
+    files.map(file => copyFileAsync(file, normalizedBackupDir))
+  );
+
+  log('complete!');
 };
 
 export default backup;

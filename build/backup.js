@@ -5,32 +5,40 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _fs = require("./utils/fs");
+var _fs = require("./services/fs");
+
+var _log = require("./services/log");
+
+// @ts-check
 
 /**
- * Backup files from command line option
- * @param {object<Commander>} commander parsed commander options
- * @returns {Promise} resolves to undefined
+ * @typedef {Object} Config user json configuration
+ * @property {string[]} Config.files path
+ * @property {string} Config.backupDirectory path
  */
-const backup = commander => {
-  // config is required, or we don't get to this point
+
+/**
+ * Backup files given a path to config file
+ * @param {string} path to config file
+ * @returns {Promise<void>} Promise
+ */
+const backup = async path => {
+  await (0, _fs.existsAsync)(path);
+  const json = await (0, _fs.readFileAsync)(path, {
+    encoding: 'utf8'
+  });
+  /** @type {Config} */
+
+  const parsedConfig = JSON.parse(json);
+  (0, _log.log)('Config:');
+  (0, _log.logNested)(parsedConfig);
   const {
-    config: path
-  } = commander;
-  return (0, _fs.existsAsync)(path).then(() => (0, _fs.readFileAsync)(path, {
-    encoding: "utf8"
-  })).then(async json => {
-    const parsedConfig = JSON.parse(json);
-    const {
-      files,
-      backupDirectory
-    } = parsedConfig;
-    const normalizedBackupDir = (0, _fs.resolvePath)(backupDirectory);
-    const promises = files.map(file => (0, _fs.copyFileAsync)(file, normalizedBackupDir));
-    await Promise.all(promises);
-    console.log("Backups successful!");
-    console.log(parsedConfig);
-  }).catch(console.error);
+    files,
+    backupDirectory
+  } = parsedConfig;
+  const normalizedBackupDir = (0, _fs.resolvePath)(backupDirectory);
+  await Promise.all(files.map(file => (0, _fs.copyFileAsync)(file, normalizedBackupDir)));
+  (0, _log.log)('complete!');
 };
 
 var _default = backup;
