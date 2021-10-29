@@ -16,6 +16,12 @@ Simple script to copy files to a backup directory.
 
 ### Developing
 
+Optional: Run script using what's in the `example` directory:
+
+- `cp example/config.example.json example/config.json`
+- replace the paths in the file as indicated
+- `npm run start-example`
+
 `npm run start-dev` run once
 
 `npm run start-watch` watch mode

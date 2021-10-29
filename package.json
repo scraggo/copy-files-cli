@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .js",
     "start": "node build/index.js",
     "start-dev": "babel-node src/index.js",
+    "start-example": "npm run start-dev -- -c example/config.json",
     "start-watch": "nodemon --exec babel-node src/index.js"
   },
   "dependencies": {

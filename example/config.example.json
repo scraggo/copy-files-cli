@@ -1,0 +1,4 @@
+{
+  "files": ["~/path-to-repo/example/foo.txt", "~/path-to-repo/example/bar.txt"],
+  "backupDirectory": "~/path-to-repo/example/backups"
+}
