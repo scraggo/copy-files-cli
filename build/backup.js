@@ -9,8 +9,6 @@ var _fs = require("./services/fs");
 
 var _log = require("./services/log");
 
-// @ts-check
-
 /**
  * @typedef {Object} Config user json configuration
  * @property {string[]} Config.files path

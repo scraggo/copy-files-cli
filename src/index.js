@@ -1,6 +1,4 @@
-// @ts-check
-
-import commander from './commander';
+import args from './cli';
 import backup from './backup';
 
-backup(commander.config);
+backup(args.config);

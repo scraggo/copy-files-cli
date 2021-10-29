@@ -1,5 +1,3 @@
-// @ts-check
-
 import {
   copyFileAsync,
   existsAsync,

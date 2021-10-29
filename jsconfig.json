@@ -1,0 +1,9 @@
+{
+  "typeAcquisition": {
+    "include": ["commander"]
+  },
+  "compilerOptions": {
+    "checkJs": true
+  },
+  "include": ["src"]
+}

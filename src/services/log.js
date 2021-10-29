@@ -1,4 +1,3 @@
-// @ts-check
 import util from 'util';
 
 const getNowISO = () => new Date(Date.now()).toISOString();

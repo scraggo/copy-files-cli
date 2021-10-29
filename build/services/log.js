@@ -9,7 +9,6 @@ var _util = _interopRequireDefault(require("util"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
 const getNowISO = () => new Date(Date.now()).toISOString();
 
 const log = (...args) => {
