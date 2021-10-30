@@ -1,4 +1,4 @@
-# node-backup-cli
+# copy-files-cli
 
 Simple script to copy files to a backup directory.
 

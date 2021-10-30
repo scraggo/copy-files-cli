@@ -1,4 +1,4 @@
 import args from './cli';
-import backup from './backup';
+import { copy } from './main';
 
-backup(args.config);
+copy(args.config);

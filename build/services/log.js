@@ -13,7 +13,7 @@ const getNowISO = () => new Date(Date.now()).toISOString();
 
 const log = (...args) => {
   // eslint-disable-next-line no-console
-  console.log(getNowISO(), '[backup]', ...args);
+  console.log(getNowISO(), '[copy]', ...args);
 };
 
 exports.log = log;

@@ -3,31 +3,40 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.copy = void 0;
 
 var _fs = require("./services/fs");
 
 var _log = require("./services/log");
 
 /**
- * @typedef {Object} Config user json configuration
- * @property {string[]} Config.files path
- * @property {string} Config.backupDirectory path
+ * @typedef { import("./types").Config } Config
  */
 
 /**
- * Backup files given a path to config file
+ * Copy files given a path to config file
  * @param {string} path to config file
- * @returns {Promise<void>} Promise
+ * @returns {Promise<Config>} Promise resolved with Config
  */
-const backup = async path => {
+const getUserConfig = async path => {
   await (0, _fs.existsAsync)(path);
   const json = await (0, _fs.readFileAsync)(path, {
     encoding: 'utf8'
   });
   /** @type {Config} */
 
-  const parsedConfig = JSON.parse(json);
+  return JSON.parse(json);
+};
+/**
+ * Copy files given a path to config file
+ * @param {string} path to config file
+ * @returns {Promise<void>} Promise
+ */
+
+
+const copy = async path => {
+  /** @type {Config} */
+  const parsedConfig = await getUserConfig(path);
   (0, _log.log)('Config:');
   (0, _log.logNested)(parsedConfig);
   const {
@@ -39,5 +48,4 @@ const backup = async path => {
   (0, _log.log)('complete!');
 };
 
-var _default = backup;
-exports.default = _default;
+exports.copy = copy;

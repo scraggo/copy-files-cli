@@ -1,5 +1,5 @@
 {
-  "name": "node-backup-cli",
+  "name": "copy-files-cli",
   "version": "0.0.1",
   "description": "copy files listed in a config to a backup directory",
   "main": "src/index.js",
